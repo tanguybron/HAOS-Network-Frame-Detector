@@ -1,0 +1,14 @@
+{
+  "domain": "network_frame_detector",
+  "name": "Network Frame Detector",
+  "codeowners": ["@tanguybron"],
+  "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://github.com/tanguybron/HAOS-Network-Frame-Detector",
+  "integration_type": "device",
+  "iot_class": "local_push",
+  "issue_tracker": "https://github.com/tanguybron/HAOS-Network-Frame-Detector/issues",
+  "requirements": [],
+  "version": "1.0.0"
+}
+

@@ -1,0 +1,49 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Network Frame Detector",
+        "description": "Configure a network frame detection rule. This integration listens for specific patterns in network traffic on a specified port.",
+        "data": {
+          "name": "Name",
+          "protocol": "Protocol",
+          "port": "Port",
+          "multicast": "Multicast",
+          "pattern_type": "Pattern Type",
+          "pattern_value": "Pattern Value",
+          "cooldown": "Cooldown (seconds)",
+          "sensor_duration": "Sensor ON Duration (seconds)",
+          "source_ip": "Source IP Filter (optional)"
+        },
+        "data_description": {
+          "name": "A unique name for this detection rule",
+          "protocol": "Network protocol (UDP or TCP)",
+          "port": "Port number to listen on (1-65535)",
+          "multicast": "Enable multicast support",
+          "pattern_type": "Type of pattern matching: string, regex, or hex",
+          "pattern_value": "The pattern to match against packet payloads",
+          "cooldown": "Minimum seconds between detections (0-3600)",
+          "sensor_duration": "How long the sensor stays ON after detection (1-3600 seconds)",
+          "source_ip": "Optional: Only match packets from this source IP address"
+        }
+      }
+    },
+    "error": {
+      "invalid_name": "Name must be 1-64 characters",
+      "invalid_port": "Port must be between 1 and 65535",
+      "invalid_pattern": "Invalid pattern value",
+      "invalid_regex": "Invalid regex pattern",
+      "invalid_hex": "Hex pattern must contain only hexadecimal characters and be even length",
+      "invalid_cooldown": "Cooldown must be between 0 and 3600 seconds",
+      "invalid_duration": "Sensor duration must be between 1 and 3600 seconds",
+      "invalid_ip": "Invalid IP address format",
+      "pattern_too_long": "Pattern value exceeds maximum length",
+      "unknown": "Unknown error occurred"
+    },
+    "abort": {
+      "already_configured": "This detection rule is already configured",
+      "port_in_use": "Port is already in use by another rule"
+    }
+  }
+}
+
