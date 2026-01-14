@@ -1,20 +1,23 @@
-# Network Frame Detector
+## Network Frame Detector
 
-A secure, Home Assistant OS-compatible custom integration for detecting specific network frames to trigger automations.
+[![HACS Default][hacs-shield]][hacs-url]
+[![License][license-shield]][license-url]
 
-## ⚠️ Security-First Design
+**Network Frame Detector** is a secure, Home Assistant OS-compatible custom integration for detecting specific network frames (for example Google Cast mDNS discovery) and using them as automation triggers. It is designed to be **safe by default**, focused on presence/detection use-cases rather than network sniffing or monitoring.
+
+## ⚠️ Security-First Design (Not a Sniffer)
 
 This integration is designed with security as the primary concern. It **does not** act as a packet sniffer or network interception tool. It provides a safe, limited mechanism for detecting specific network patterns on configured ports.
 
 ## Features
 
-- **Secure by Design**: No raw sockets, no promiscuous mode, no packet injection
-- **Pattern Matching**: Support for string, regex, and hex pattern matching
-- **Protocol Support**: UDP and TCP
-- **Multicast Support**: Optional multicast group membership for mDNS discovery
-- **Cooldown Protection**: Configurable cooldown period to prevent spam
-- **Event Firing**: Fires Home Assistant events on detection
-- **Binary Sensor**: Provides a binary sensor that turns ON when frames are detected
+- **Secure by design**: No raw sockets, no promiscuous mode, no packet injection
+- **Pattern matching**: Supports `string`, `regex` and `hex` matching on payload only
+- **Protocol support**: UDP and TCP, with optional multicast for mDNS-style traffic
+- **Binary sensor entity**: One binary sensor per rule (with configurable ON duration)
+- **Event stream**: Fires a `network_frame_detected` event for each detection
+- **Cooldown protection**: Per-rule cooldown to avoid event/automation spam
+- **HAOS friendly**: Async-only, no external dependencies, local-only operation
 
 ## Installation
 
@@ -23,14 +26,15 @@ This integration is designed with security as the primary concern. It **does not
 1. Open HACS in Home Assistant
 2. Go to "Integrations"
 3. Click the three dots menu (⋮) → "Custom repositories"
-4. Add this repository URL: `https://github.com/USERNAME/HAOS-Network-Frame-Detector` (replace USERNAME with your GitHub username)
+4. Add this repository URL: `https://github.com/USERNAME/HAOS-Network-Frame-Detector` (replace `USERNAME` with your GitHub username)
 5. Select category: **Integration**
 6. Click "Add"
 7. Search for "Network Frame Detector" and install
 8. Restart Home Assistant
 9. Add the integration via Settings → Devices & Services → Add Integration
 
-> **Important (HACS)**: Create a GitHub **Release** (tag like `v1.0.0`) and keep `custom_components/network_frame_detector/manifest.json` `"version"` in sync with that release. If you don’t publish releases, HACS may fall back to installing a commit hash (and refuse it).
+> **Important for HACS users**  
+> This repository is release-driven. Always install versions that correspond to a GitHub **Release tag** (for example `v1.0.0`). The `version` in `manifest.json` is kept in sync with the latest release so HACS can safely upgrade and roll back.
 
 ### Manual Installation
 
@@ -61,7 +65,7 @@ Configuration is done entirely through the Home Assistant UI (Config Flow).
 - **Sensor Duration**: How long the sensor stays ON after detection (1-3600 seconds)
 - **Source IP Filter** (optional): Only match packets from this specific IP address
 
-## Example: Google Cast mDNS Detection
+## Example: Google Cast mDNS detection
 
 To detect when a Google Cast device announces itself via mDNS:
 
@@ -80,7 +84,7 @@ To detect when a Google Cast device announces itself via mDNS:
 3. The binary sensor will turn ON when a Google Cast device is discovered
 4. An event `network_frame_detected` will be fired with detection details
 
-### Automation Example
+### Automation example
 
 ```yaml
 automation:
@@ -96,7 +100,7 @@ automation:
           message: "A Google Cast device was detected on the network!"
 ```
 
-## Security Model
+## Security model
 
 ### What This Integration Does
 
@@ -141,7 +145,7 @@ automation:
 - No busy loops or blocking operations
 - All operations are async
 
-## Threat Model
+## Threat model
 
 ### Assumptions
 
@@ -164,7 +168,7 @@ automation:
 - **Port Conflicts**: Does not prevent other services from using the same port
 - **Privilege Escalation**: Does not provide additional security beyond Home Assistant's model
 
-## Non-Goals
+## Non-goals
 
 This integration explicitly **does not**:
 
