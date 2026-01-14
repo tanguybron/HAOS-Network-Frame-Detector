@@ -30,6 +30,8 @@ This integration is designed with security as the primary concern. It **does not
 8. Restart Home Assistant
 9. Add the integration via Settings → Devices & Services → Add Integration
 
+> **Important (HACS)**: Create a GitHub **Release** (tag like `v1.0.0`) and keep `custom_components/network_frame_detector/manifest.json` `"version"` in sync with that release. If you don’t publish releases, HACS may fall back to installing a commit hash (and refuse it).
+
 ### Manual Installation
 
 1. Copy the `custom_components/network_frame_detector` folder to your Home Assistant `custom_components` directory
